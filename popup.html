@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GN Extract</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🧠 GN Extract</h1>
+      <p>Extrator de telefones do Google Maps</p>
+    </header>
+    
+    <div class="main-content">
+      <div class="info-section">
+        <p class="instruction">
+          📍 Abra o Google Maps, pesquise por empresas e clique em "Extrair Telefones"
+        </p>
+      </div>
+      
+      <div class="controls">
+        <button id="extractBtn" class="btn btn-primary">
+          🔍 Extrair Telefones
+        </button>
+        
+        <div class="status" id="status">
+          Aguardando...
+        </div>
+      </div>
+      
+      <div class="results-section" id="resultsSection" style="display: none;">
+        <div class="results-header">
+          <h3>📞 Telefones Encontrados: <span id="phoneCount">0</span></h3>
+        </div>
+        
+        <div class="results-content" id="resultsContent">
+          <!-- Resultados serão inseridos aqui -->
+        </div>
+        
+        <div class="export-options">
+          <button id="copyBtn" class="btn btn-secondary">
+            📋 Copiar Tudo
+          </button>
+          <button id="downloadBtn" class="btn btn-secondary">
+            📥 Baixar .txt
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+      <p class="version">v1.0.0 - GN Extract</p>
+    </footer>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
