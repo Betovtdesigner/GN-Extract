@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📥 Download GN Extract - Todos os Arquivos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .download-all {
+            background: #34a853;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0;
+            width: 100%;
+        }
+        .download-all:hover {
+            background: #2e7d32;
+        }
+        .status {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .instructions h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+        .instructions ol {
+            color: #333;
+            line-height: 1.6;
+        }
+        .instructions ol li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📥 Download GN Extract</h1>
+        <p style="text-align: center; color: #666; font-size: 1.1em; margin-bottom: 30px;">
+            Clique no botão abaixo para baixar todos os arquivos do plug-in
+        </p>
+        
+        <button class="download-all" onclick="downloadAllFiles()">
+            🚀 Baixar Todos os Arquivos
+        </button>
+        
+        <div id="status"></div>
+        
+        <div class="instructions">
+            <h3>📋 Instruções de Instalação</h3>
+            <ol>
+                <li><strong>Clique no botão acima</strong> para baixar todos os arquivos</li>
+                <li><strong>Crie uma pasta</strong> chamada "gn-extract" no seu computador</li>
+                <li><strong>Mova todos os arquivos baixados</strong> para dentro desta pasta</li>
+                <li><strong>Abra o Chrome</strong> e vá para <code>chrome://extensions/</code></li>
+                <li><strong>Ative o "Modo desenvolvedor"</strong> (botão no canto superior direito)</li>
+                <li><strong>Clique em "Carregar sem compactação"</strong></li>
+                <li><strong>Selecione a pasta</strong> "gn-extract" com todos os arquivos</li>
+                <li><strong>Pronto!</strong> O plug-in será instalado</li>
+            </ol>
+            
+            <p style="margin-top: 15px; color: #d32f2f; font-weight: bold;">
+                ⚠️ Importante: Use apenas os 6 arquivos principais (.js, .html, .css, .json) para instalar o plug-in!
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Função para baixar todos os arquivos
+        function downloadAllFiles() {
+            const status = document.getElementById('status');
+            status.innerHTML = '<div class="status">🔄 Baixando todos os arquivos...</div>';
+            
+            // Lista de arquivos para baixar
+            const files = [
+                { name: 'manifest.json', type: 'application/json' },
+                { name: 'content.js', type: 'application/javascript' },
+                { name: 'popup.html', type: 'text/html' },
+                { name: 'popup.js', type: 'application/javascript' },
+                { name: 'styles.css', type: 'text/css' },
+                { name: 'background.js', type: 'application/javascript' },
+                { name: 'README.md', type: 'text/markdown' },
+                { name: 'INSTALACAO.md', type: 'text/markdown' },
+                { name: 'CHECKLIST.md', type: 'text/markdown' },
+                { name: 'icon-generator.html', type: 'text/html' }
+            ];
+            
+            // Baixar cada arquivo
+            files.forEach((file, index) => {
+                setTimeout(() => {
+                    downloadFile(file.name, file.type);
+                    if (index === files.length - 1) {
+                        status.innerHTML = `
+                            <div class="status">
+                                ✅ Todos os ${files.length} arquivos foram baixados com sucesso!
+                                <br><br>
+                                <strong>Próximos passos:</strong>
+                                <br>1. Crie uma pasta "gn-extract"
+                                <br>2. Mova todos os arquivos para esta pasta
+                                <br>3. Abra chrome://extensions/
+                                <br>4. Ative "Modo desenvolvedor"
+                                <br>5. Clique "Carregar sem compactação"
+                                <br>6. Selecione a pasta "gn-extract"
+                            </div>
+                        `;
+                    }
+                }, index * 200);
+            });
+        }
+        
+        // Função para baixar um arquivo específico
+        function downloadFile(filename, filetype) {
+            const content = getFileContent(filename);
+            const blob = new Blob([content], { type: filetype });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+        }
+        
+        // Função para obter o conteúdo de cada arquivo
+        function getFileContent(filename) {
+            const contents = {
+                'manifest.json': `{
+  "manifest_version": 3,
+  "name": "GN Extract - Google Maps Phone Extractor",
+  "version": "1.0.0",
+  "description": "Extrai números de telefone das empresas listadas no Google Maps",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.google.com/maps/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/maps/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "GN Extract"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}`,
+                'content.js': `// GN Extract - Content Script
+console.log('GN Extract: Content script carregado');
+
+// Função para extrair números de telefone
+function extractPhoneNumbers() {
+  const phoneNumbers = [];
+  
+  // Seletores para encontrar os resultados no Google Maps
+  const resultSelectors = [
+    '[data-result-index]',
+    '[role="article"]',
+    '.hfpxzc',
+    '.VkpGBb'
+  ];
+  
+  // Buscar elementos que contenham informações de empresas
+  const businessElements = document.querySelectorAll(resultSelectors.join(', '));
+  
+  businessElements.forEach((element, index) => {
+    try {
+      // Extrair nome da empresa
+      const nameElement = element.querySelector('.qBF1Pd, .fontHeadlineSmall, .NrDZNb');
+      const businessName = nameElement ? nameElement.textContent.trim() : 'Empresa ' + (index + 1);
+      
+      // Procurar números de telefone no texto
+      const phoneRegex = /(\\(?\\d{2}\\)?\\s?\\d{4,5}-?\\d{4}|\\(?\\d{2}\\)?\\s?\\d{8,9})/g;
+      const textContent = element.textContent;
+      const phoneMatches = textContent.match(phoneRegex);
+      
+      if (phoneMatches) {
+        phoneMatches.forEach(phone => {
+          const cleanPhone = phone.replace(/\\s+/g, ' ').trim();
+          if (cleanPhone.length >= 8) {
+            phoneNumbers.push({
+              business: businessName,
+              phone: cleanPhone,
+              element: element
+            });
+          }
+        });
+      }
+      
+    } catch (error) {
+      console.log('Erro ao processar elemento:', error);
+    }
+  });
+  
+  return phoneNumbers;
+}
+
+// Função para destacar elementos com telefones encontrados
+function highlightPhoneElements(phoneData) {
+  phoneData.forEach(item => {
+    if (item.element) {
+      item.element.style.border = '2px solid #4285f4';
+      item.element.style.backgroundColor = '#e8f0fe';
+    }
+  });
+}
+
+// Função para remover highlights
+function removeHighlights() {
+  const highlightedElements = document.querySelectorAll('[style*="border: 2px solid #4285f4"]');
+  highlightedElements.forEach(el => {
+    el.style.border = '';
+    el.style.backgroundColor = '';
+  });
+}
+
+// Listener para mensagens do popup
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'extractPhones') {
+    console.log('GN Extract: Iniciando extração de telefones');
+    
+    const phoneNumbers = extractPhoneNumbers();
+    
+    console.log('GN Extract: Telefones encontrados:', phoneNumbers.length);
+    
+    if (phoneNumbers.length > 0) {
+      highlightPhoneElements(phoneNumbers);
+      setTimeout(() => removeHighlights(), 5000);
+    }
+    
+    sendResponse({
+      success: true,
+      data: phoneNumbers,
+      count: phoneNumbers.length
+    });
+  }
+  
+  return true;
+});
+
+// Notificar que o script está pronto
+chrome.runtime.sendMessage({ action: 'contentScriptReady' });`,
+                'popup.html': `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GN Extract</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🧠 GN Extract</h1>
+      <p>Extrator de telefones do Google Maps</p>
+    </header>
+    
+    <div class="main-content">
+      <div class="info-section">
+        <p class="instruction">
+          📍 Abra o Google Maps, pesquise por empresas e clique em "Extrair Telefones"
+        </p>
+      </div>
+      
+      <div class="controls">
+        <button id="extractBtn" class="btn btn-primary">
+          🔍 Extrair Telefones
+        </button>
+        
+        <div class="status" id="status">
+          Aguardando...
+        </div>
+      </div>
+      
+      <div class="results-section" id="resultsSection" style="display: none;">
+        <div class="results-header">
+          <h3>📞 Telefones Encontrados: <span id="phoneCount">0</span></h3>
+        </div>
+        
+        <div class="results-content" id="resultsContent">
+          <!-- Resultados serão inseridos aqui -->
+        </div>
+        
+        <div class="export-options">
+          <button id="copyBtn" class="btn btn-secondary">
+            📋 Copiar Tudo
+          </button>
+          <button id="downloadBtn" class="btn btn-secondary">
+            📥 Baixar .txt
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+      <p class="version">v1.0.0 - GN Extract</p>
+    </footer>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>`
+            };
+            
+            return contents[filename] || '';
+        }
+    </script>
+</body>
+</html>
